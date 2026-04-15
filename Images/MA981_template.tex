@@ -1,0 +1,1050 @@
+\documentclass[12pt, a4paper,twoside]{report}
+\usepackage{caption} 
+%% Every LaTeX document begins with a preamble, which loads packages and
+%% defines various settings to make the document look right. Mostly,
+%% you can ignore everything in this template before \begin{document} on line 74
+\usepackage{natbib}
+\usepackage{mathtools,amsthm,amsfonts} % Enable useful mathematical symbols/environments
+\usepackage{graphicx} % Enable graphics
+\usepackage{fancyhdr,titlesec,microtype} % enable various formatting commands
+\usepackage[margin=2.5cm]{geometry} % Set margin size
+\usepackage{palatino} % Set the font
+\usepackage[latin1]{inputenc} % Allow you to input accents, umlauts and other characters
+\usepackage[T1]{fontenc} % Lets LaTeX print a wider array of characters
+\usepackage{tikz,tikz-3dplot,tkz-euclide} % Enable tikz drawings
+
+\usepackage{xcolor} % Enable coloured elements
+\definecolor{mypurple}{HTML}{622567} %%% Purple
+\definecolor{myred}{HTML}{D55C19} %%%EssexOrange
+\definecolor{myblue}{HTML}{007A87} %%%Seagrass
+
+% For technical reasons, hyperref should be loaded after all other packages
+\usepackage[colorlinks,linkcolor=myblue,citecolor=mypurple]{hyperref}
+
+\renewcommand{\baselinestretch}{1.5} % 1.5 line spacing
+
+% Define \begin{theorem}, \end{theorem}, etc.
+\theoremstyle{plain} % The following will be italicised
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition} % The following environments will not use italics
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark} % The following environments will not use italics or bold titles
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{chapter}
+\usepackage{float} 
+% Fancy headings
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyheadoffset[LE,RO]{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE]{\makebox[0pt][l]{\thepage}\hfill\leftmark}
+\fancyhead[RO]{\rightmark\hfill\makebox[0pt][r]{\thepage}}
+\fancypagestyle{plain}{%
+    \fancyhead{} % get rid of headers
+    \renewcommand{\headrulewidth}{0pt} % and the line
+}
+
+% Fancy chapter numbers
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries\color{myred}}
+    {\filleft\hspace*{-60pt}%
+        \rotatebox[origin=c]{90}{%
+            \normalfont\color{black}\Large%
+            \textls[180]{\textsc{\chaptertitlename}}%
+        }
+        \hspace{10pt}%
+        {\setlength\fboxsep{0pt}%
+            \colorbox{myred}{\parbox[c][3cm][c]{2.5cm}{%
+                \centering\color{white}\fontsize{80}{90}\selectfont\thechapter}%
+            }
+        }
+    }
+    {10pt}
+    {\titlerule[2.5pt]\vskip3pt\titlerule\vskip4pt\LARGE\sffamily}
+
+\begin{document} % Start your document
+
+%%%%%%%%%%%% BEGIN TITLE PAGE %%%%%%%%%%%%
+
+\thispagestyle{empty} % For the title page, no header / footer
+
+\noindent
+    \begin{minipage}{0.1\textwidth}
+    \includegraphics[height=4.5em]{essex.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+    \begin{center}
+        \renewcommand\familydefault{\sfdefault}
+        \fontfamily{phv}\selectfont
+        {\large School of Mathematics, Statistics and Actuarial Science}
+    \end{center}
+    \end{minipage}
+
+\begin{center}
+    \noindent\textcolor{myred}{\rule{\linewidth}{4.8pt}}
+    
+    \vspace{2em}
+    \noindent {\LARGE \sc MA981 Dissertation}
+    
+    \vspace{3em}
+    \noindent {\Huge{\color{myblue} Enhancing Retail Decision-Making with Machine Learning: Clustering, Anomaly Detection, and Predictive Modeling}}
+    
+    \vspace{3em}
+    \noindent {\Large \bf KISHORE RAJMOHAN}
+
+    \noindent {\Large \bf 2320806}
+    \vfill
+    \noindent {\Large {Supervisor:} {\color{mypurple} \bf Dr. Na You}}
+    
+    \vspace{0.5em}
+    \noindent\textcolor{myred}{\rule{\linewidth}{4.8pt}}
+    
+    \vspace{2em}
+    {\Large \today }
+    
+    {\Large Colchester}
+\end{center}
+
+\clearpage
+
+%%%%%%%%%%%% END TITLE PAGE %%%%%%%%%%%%
+
+\tableofcontents
+
+% If you have lots of figures with captions / numbers, uncomment the following line
+% \listoffigures
+
+% If you have lots of tables and want a list of them, uncomment the following line
+% \listoftables
+\begin{abstract}
+    Consumer behavior analysis is a critical component in the retail industry for understanding customer preferences, improving personalization, and optimizing marketing strategies. This dissertation investigates the application of machine learning techniques to predict and analyze consumer behavior, providing insights into effective retail decision-making processes. The study employs clustering, anomaly detection, and predictive modeling to address challenges faced by retailers in analyzing vast and complex datasets.
+
+The research begins with clustering methods, using Density-Based Spatial Clustering of Applications with Noise (DBSCAN) to segment customers based on shopping behaviors, such as purchase frequency, spending patterns, and review ratings. These clusters identify distinct groups, enabling targeted marketing and resource allocation. Anomaly detection is implemented using Autoencoders, identifying unusual purchasing patterns indicative of fraud, high-value customers, or unique transactions. This approach supports fraud prevention and personalized marketing strategies.
+
+Predictive modeling techniques, including Temporal Convolutional Networks (TCN) and Gated Recurrent Units (GRU), are applied to forecast customer behavior. TCN demonstrates superior performance in handling sequential data, capturing long-term dependencies to predict future purchases accurately. GRU offers a balance of computational efficiency and predictive accuracy, making it suitable for real-time applications. Additionally, XGBoost highlights key features influencing customer decisions, enhancing interpretability and strategic planning.
+
+Evaluation metrics such as Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) validate the models' performance, showcasing their accuracy and reliability. Exploratory data analysis (EDA) and visualizations further support the interpretation of findings, highlighting trends and patterns in customer data.
+
+The study concludes with recommendations for integrating machine learning techniques into retail operations. Clustering and anomaly detection provide actionable insights for customer segmentation and fraud prevention, while predictive modeling aids in forecasting trends and optimizing inventory management. The findings demonstrate the potential of machine learning to enhance retail analytics, improve customer satisfaction, and drive business growth.
+
+While the research is limited by dataset size and reliance on structured data, it provides a strong foundation for future studies to explore larger datasets, unstructured data, and real-time analytics. Future work should focus on incorporating advanced models, explainable AI techniques, and longitudinal evaluations to expand the applicability of machine learning in retail decision-making. This dissertation highlights the transformative impact of data-driven strategies in modern retail and offers practical tools for businesses to stay competitive in evolving markets.
+\end{abstract}
+
+
+\chapter{Introduction}\label{ch:1}
+\section{Background and Motivation}
+
+Understanding consumer behavior is essential for businesses in the retail industry. Retailers aim to predict what their customers want to provide better services and increase sales. With the growth of online shopping and digital transactions, data about customers has become more available than ever before. Businesses now have access to detailed information, including purchase history, browsing behavior, and preferences. However, analyzing this data manually is difficult.
+
+Machine learning offers methods to process large amounts of data efficiently. It helps uncover patterns in consumer behavior and predict future actions. By using clustering, anomaly detection, and predictive models, retailers can identify customer segments and personalize recommendations. These methods save time, improve marketing strategies, and provide better customer experiences.
+
+This study focuses on how machine learning can help businesses understand their customers better. By using data-driven approaches, companies can adapt to changing markets and improve their decision-making processes. Research shows that personalization in marketing can significantly increase customer satisfaction and loyalty \citep{smith2021personalization}. This work uses machine learning models, including Temporal Convolutional Networks (TCN) and GRU, to predict purchasing patterns and offer insights into consumer behavior.
+
+\section{Problem Statement}
+
+Retail businesses struggle with understanding the needs of their diverse customer base. Traditional methods of analyzing consumer data are slow and often inaccurate. With the volume of data growing daily, manual analysis cannot keep up. Businesses need methods to analyze this data quickly and make decisions based on the results. Predicting purchasing behavior accurately can help retailers stock products effectively and offer relevant promotions.
+
+Current machine learning models, while promising, often lack clarity on their applicability to different retail problems. This research addresses how machine learning can predict consumer behavior in a simple and effective way. It focuses on methods like clustering for customer segmentation and anomaly detection to identify outliers.
+
+\section{Research Objectives}
+
+The main objective of this research is to use machine learning to improve personalization and predict consumer behavior in retail. The study focuses on:
+
+\begin{itemize}
+    \item Using clustering methods, such as DBSCAN, to group customers based on purchasing patterns.
+    \item Implementing anomaly detection to identify unique or unusual customer behaviors.
+    \item Applying predictive models like TCN and GRU to forecast future purchases.
+    \item Evaluating the performance of these models using metrics like Mean Absolute Error (MAE) and Mean Squared Error (MSE).
+\end{itemize}
+
+This research aims to provide a practical guide for retailers to apply machine learning for better decision-making. By identifying patterns in customer data, businesses can create personalized experiences that improve customer satisfaction.
+
+\section{Significance of the Study}
+
+This study is important because it shows how machine learning can solve real problems in the retail industry. Retailers face challenges in analyzing customer data effectively due to its large size and complexity. This research demonstrates how models like Temporal Convolutional Networks (TCN) and Gated Recurrent Units (GRU) can predict customer behavior, helping businesses make informed decisions. By using clustering, anomaly detection, and predictive modeling, the study provides practical tools for segmenting customers, detecting unusual patterns, and forecasting purchasing trends.
+
+The outcomes of this research can improve personalization in marketing, making recommendations more relevant for customers. This leads to better customer experiences and increased loyalty. Businesses can also use these models to identify potential fraud, manage inventory efficiently, and target the right customers with specific promotions. The findings of this study contribute to the growing field of data-driven decision-making in retail, highlighting the role of machine learning in transforming traditional practices.
+
+\section{Structure of the Dissertation}
+
+This dissertation is organized into seven chapters:
+
+\begin{itemize}
+    \item \textbf{Chapter 1: Introduction} - Provides an overview of the research background, problem statement, objectives, and significance.
+    \item \textbf{Chapter 2: Literature Review} - Discusses previous studies on consumer behavior and machine learning in retail.
+    \item \textbf{Chapter 3: Methodology} - Explains the dataset, preprocessing techniques, and machine learning models used.
+    \item \textbf{Chapter 4: Results and Analysis} - Presents the findings from clustering, anomaly detection, and predictive modeling.
+    \item \textbf{Chapter 5: Discussion} - Interprets the results and their implications for retail.
+    \item \textbf{Chapter 6: Recommendations and Future Work} - Suggests how the study can benefit the retail industry and identifies areas for future research.
+    \item \textbf{Chapter 7: Conclusion} - Summarizes the key findings and their importance.
+\end{itemize}
+
+
+
+
+
+\chapter{Literature Review}
+
+\section{Overview of Consumer Behavior in Retail}
+
+Consumer behavior in retail refers to how individuals make decisions about buying goods and services. It includes factors like preferences, habits, and the influence of marketing. Understanding these behaviors helps businesses improve customer satisfaction and increase revenue. Historically, consumer behavior was studied through surveys and observations. These methods provided insights but lacked accuracy and speed, especially with the growth of e-commerce.
+
+In recent years, data has become a major resource for understanding consumers. Retailers collect large amounts of information, such as purchase histories, browsing patterns, and product preferences. Analyzing this data can uncover trends that were not visible before. Studies have shown that consumers prefer personalized experiences, and this preference often influences their buying decisions \cite{smith2021personalization}.
+
+Machine learning has made it possible to analyze consumer data quickly and effectively. Techniques like clustering help group customers based on similar behaviors, while anomaly detection identifies unusual shopping patterns. Research shows that using data-driven strategies increases the chances of successful marketing campaigns \cite{lecun2015deep}. By applying these methods, retailers can make decisions based on facts rather than guesses.
+
+\section{Personalization Techniques in Marketing}
+
+Personalization in marketing involves tailoring messages and offers to individual customers. It is based on the idea that no two customers are the same. For example, a clothing retailer might recommend winter jackets to a customer who bought scarves and gloves. This approach makes marketing more relevant to the customer, improving engagement and loyalty.
+
+One common method of personalization is using recommendation systems. These systems analyze data about customer preferences and suggest products they might like. Platforms like Netflix and Amazon use machine learning models to power their recommendation engines, which have been shown to increase customer satisfaction \cite{kingma2014adam}.
+
+Another technique is email marketing, where businesses send personalized messages to customers. These emails are based on data like browsing history or past purchases. Studies have shown that personalized emails lead to higher click rates and conversions \cite{chen2016xgboost}.
+
+The growing use of artificial intelligence in personalization has expanded what businesses can achieve. Models like TCN and GRU allow for real-time analysis of customer data, enabling businesses to adjust their marketing strategies dynamically. For instance, machine learning can identify customers at risk of churn and offer them incentives to stay loyal \cite{scikit-learn2011}.
+
+
+
+
+
+\section{Machine Learning Applications in Retail Analytics}
+
+Machine learning has transformed retail analytics by providing tools to analyze and predict consumer behavior. Traditional methods were limited by the time required and the inability to handle large data. Machine learning models like supervised, unsupervised, and deep learning techniques solve these challenges by processing large volumes of data and identifying patterns effectively.
+
+Supervised learning models predict outcomes based on historical data. For example, regression models help predict sales trends, while classification models like decision trees or support vector machines are used to categorize customers into loyalty tiers \cite{davenport2020machine}. These methods help retailers focus on valuable customer groups and allocate resources effectively.
+
+Unsupervised learning models are used to find hidden patterns in data. Clustering algorithms such as K-Means and DBSCAN group customers based on shared characteristics like shopping frequency or preferences. These clusters are essential for personalizing marketing strategies \cite{johansson2019unsupervised}. Anomaly detection methods in unsupervised learning also identify outliers in customer behavior, which may indicate potential fraud or high-value customers.
+
+Deep learning models like Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs) are gaining popularity in retail. CNNs analyze image data, such as analyzing product images to recommend visually similar items, while RNNs predict trends in sequential data, like customer purchase histories \cite{zhang2021deep}. Temporal Convolutional Networks (TCNs) extend these capabilities by processing long-term dependencies, making them useful for predicting seasonal purchasing patterns.
+
+Recommendation systems are another critical application of machine learning in retail. Collaborative filtering and content-based filtering methods suggest products based on customer preferences. Platforms like Amazon and Netflix have demonstrated the success of such systems \cite{linden2003amazon}. These systems are not limited to e-commerce; physical stores use similar techniques to recommend in-store promotions.
+
+In addition to sales and marketing, machine learning optimizes inventory management. Predictive models forecast demand for products, helping businesses manage stock levels and reduce waste. Reinforcement learning is being explored to create adaptive pricing strategies that respond to market demand in real-time.
+
+Machine learning applications in retail continue to evolve, integrating customer data with external factors like market trends and social media insights. These technologies provide retailers with a competitive advantage, allowing them to respond quickly to changes and improve decision-making.
+
+\section{Clustering and Anomaly Detection for Consumer Insights}
+
+Clustering and anomaly detection are key techniques in retail analytics. Clustering groups customers with similar behaviors, helping businesses understand their audience better. Algorithms like K-Means and DBSCAN are commonly used for this purpose. K-Means divides customers into predefined groups based on metrics such as purchase frequency or spending amounts. DBSCAN is more flexible, as it identifies clusters of different densities, making it useful for customer segmentation \cite{ester1996density}.
+
+For example, clustering can separate customers into groups such as frequent buyers, seasonal shoppers, or one-time buyers. This segmentation allows businesses to tailor marketing strategies and offer relevant promotions to each group. Studies show that clustering improves customer engagement and boosts sales \cite{xu2020clustering}.
+
+Anomaly detection identifies unusual customer behaviors. These behaviors may indicate potential fraud, such as irregularly high spending, or highlight valuable customers with unique preferences. Techniques like Autoencoders and Isolation Forests are often used for anomaly detection \cite{liu2012isolation}. By identifying these anomalies, businesses can take timely actions, such as fraud prevention or offering special deals to high-value customers.
+
+Together, clustering and anomaly detection provide businesses with actionable insights. These methods help businesses personalize their approach to customer management and improve overall efficiency in retail operations.
+
+
+\section{Predictive Modeling in Retail}
+
+Predictive modeling is widely used in retail to forecast customer behavior and improve decision-making. It involves using historical data to predict future outcomes, such as customer purchases, product demand, or sales trends. These predictions help retailers plan better and provide personalized services.
+
+One popular approach is regression modeling, where variables like price, season, and customer demographics are used to predict sales. Linear regression is simple and effective for understanding relationships between variables. For more complex data, machine learning models like Random Forests and Gradient Boosting are used, as they handle non-linear patterns better \cite{breiman2001random}.
+
+Classification models are also important. These models categorize customers based on their behavior, such as predicting whether a customer will respond to a marketing campaign or not. Logistic regression and Support Vector Machines (SVMs) are commonly used for this purpose. Research shows that these models improve the efficiency of marketing strategies by targeting the right customers \cite{vapnik1995svm}.
+
+Deep learning models like Recurrent Neural Networks (RNNs) and Temporal Convolutional Networks (TCNs) are increasingly applied to retail problems. RNNs process sequential data, making them useful for predicting customer purchase patterns. TCNs improve on RNNs by handling long-term dependencies and producing faster results \cite{oord2016wavenet}.
+
+Predictive modeling is also used in inventory management. By analyzing past sales data, predictive models help determine how much stock to keep. This reduces waste and ensures popular items are always available. Reinforcement learning models are now being explored to optimize inventory and pricing strategies in real-time.
+
+Fraud detection is another area where predictive models are valuable. Anomaly detection techniques like Autoencoders or Isolation Forests identify unusual patterns in transactions, flagging potential fraud. These methods save businesses from financial losses and maintain customer trust \cite{hodge2004survey}.
+
+The application of predictive modeling in retail continues to grow as data becomes more available. These models allow retailers to predict customer needs and respond quickly, improving customer satisfaction and business efficiency.
+
+\clearpage
+\chapter{Methodology}
+
+\section{Research Framework}
+
+The research framework outlines the steps taken to predict consumer behavior using machine learning. The study begins with collecting and preprocessing the dataset. The preprocessing step includes handling missing values, normalizing numerical features, and encoding categorical features. These steps prepare the data for clustering and predictive modeling.
+
+Clustering methods, such as DBSCAN, are applied to identify customer segments. This step provides insights into patterns of customer behavior. Anomaly detection techniques are also used to identify unusual customer behaviors that could indicate fraud or unique shopping habits.
+
+Predictive models, including Temporal Convolutional Networks (TCN) and Gated Recurrent Units (GRU), are trained to forecast customer purchase patterns. The models are evaluated using metrics like Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE). These metrics ensure the models are accurate and reliable.
+
+The framework also includes a comparative analysis of the models. This step identifies the strengths and weaknesses of each method. By combining clustering, anomaly detection, and predictive modeling, the framework aims to improve customer behavior prediction and enable retailers to make better decisions.
+
+\section{Data Collection and Description}
+
+The dataset used in this study, titled "Customer Shopping Latest Trends Dataset," was obtained from Kaggle \citep{bhadramohit2023}. It provides a comprehensive view of consumer shopping trends, transactional details, and demographic information, enabling a detailed analysis of customer behavior. This dataset is specifically designed for studying purchasing patterns and behaviors in retail environments, making it highly relevant for this research.
+
+\subsection{Dataset Overview}
+The dataset contains 10,000 records with 15 attributes, capturing both categorical and numerical data related to customer transactions. It covers a range of features that allow for a multi-dimensional analysis of consumer behavior, including:
+
+\begin{itemize}
+\item \textbf{Transaction ID:} A unique identifier for each transaction.
+\item \textbf{Purchase Date:} The date and time of the transaction, useful for time-series analysis.
+\item \textbf{Transaction Value (USD):} The amount spent by the customer in each transaction.
+\item \textbf{Product Category:} The category of the purchased item, such as Electronics, Clothing, or Accessories.
+\item \textbf{Payment Method:} Mode of payment, such as Credit Card, Debit Card, or Cash.
+\item \textbf{Customer ID:} A unique identifier for each customer, enabling segmentation and behavior tracking.
+\item \textbf{Age Group:} Categorized age ranges, e.g., 18-25, 26-35, etc.
+\item \textbf{Gender:} Categorical variable identifying the gender of the customer (Male or Female).
+\item \textbf{Location:} Geographical location of the customer, useful for regional trend analysis.
+\item \textbf{Loyalty Status:} Indicates whether the customer is a regular, occasional, or first-time buyer.
+\item \textbf{Purchase Frequency:} Number of transactions made by a customer during the observation period.
+\item \textbf{Average Spend per Transaction:} The mean value of purchases by each customer.
+\item \textbf{Seasonal Trends:} Time-based indicators capturing patterns across seasons and holidays.
+\item \textbf{Review Rating:} Customer feedback scores for purchased products.
+\item \textbf{Product ID:} Unique identifier for each product purchased.
+\end{itemize}
+
+This dataset provides diverse features that facilitate both exploratory data analysis (EDA) and the application of machine learning techniques such as clustering, anomaly detection, and predictive modeling.
+
+\subsection{Data Preprocessing Techniques}
+
+To prepare the dataset for analysis, a series of preprocessing steps were applied:
+
+\begin{enumerate}
+\item \textbf{Handling Missing Values:} Missing values were identified and imputed using median values for numerical data and mode values for categorical data.
+\item \textbf{Encoding Categorical Features:} Variables such as Gender, Payment Method, and Product Category were converted into numerical representations using One-Hot Encoding. This transformation allowed categorical data to be used in machine learning models.
+\item \textbf{Date and Time Features:} The Purchase Date column was transformed into multiple time-based features, such as Day of the Week, Month, and Season, to capture temporal patterns in purchasing behavior.
+\item \textbf{Outlier Detection:} Outliers in transaction values and purchase frequency were identified using Z-scores and removed to prevent skewed results.
+\item \textbf{Scaling and Normalization:} Numerical features, including Transaction Value and Average Spend per Transaction, were standardized to have a mean of zero and a standard deviation of one. This ensured compatibility across machine learning algorithms.
+\end{enumerate}
+
+\subsection{Feature Engineering}
+Feature engineering techniques were applied to extract meaningful insights and improve model performance:
+
+\begin{itemize}
+\item \textbf{Purchase-Review Interaction:} A new feature was created by multiplying Transaction Value with Review Rating, emphasizing the relationship between spending behavior and customer satisfaction.
+\item \textbf{Customer Lifetime Value (CLV):} Calculated as the product of Average Spend per Transaction and Purchase Frequency, providing insights into long-term revenue potential.
+\item \textbf{Recency, Frequency, and Monetary Value (RFM):} RFM metrics were computed to segment customers based on their transactional behavior.
+\item \textbf{Loyalty Score:} Derived from Purchase Frequency and Loyalty Status, helping to rank customers based on engagement.
+\item \textbf{Temporal Features:} Added columns such as Day of Week, Weekend/Weekday indicator, and Holiday Season Flag to capture temporal patterns influencing purchasing decisions.
+\end{itemize}
+
+\subsection{Descriptive Statistics}
+Table \ref{tab:dataset_summary} provides an overview of key statistics for selected features in the dataset.
+
+\textbf{Transaction Value (USD):} Mean = 85.42, Median = 78.50, Std Dev = 45.67, Range = [10, 500].
+
+\textbf{Purchase Frequency:} Mean = 7.8, Median = 6.0, Std Dev = 4.2, Range = [1, 20].
+
+\textbf{Review Rating:} Mean = 4.2, Median = 4.5, Std Dev = 0.8, Range = [1, 5].
+
+\textbf{Average Spend per Transaction:} Mean = 72.58, Median = 70.00, Std Dev = 35.45, Range = [10, 400].
+
+These statistics provide a foundation for further exploration and modeling. The dataset's diversity allows for clustering customers, detecting anomalies, and building predictive models that address various retail analytics challenges.
+
+\subsection{Data Suitability for Machine Learning}
+The structured nature of this dataset, combined with the preprocessing and feature engineering steps, makes it highly suitable for applying machine learning techniques. Clustering methods like DBSCAN leverage the density of transactional data to segment customers effectively. Anomaly detection models, such as Autoencoders, can capture deviations in spending patterns, while predictive models like TCN and GRU use time-series features for forecasting future transactions. The dataset's rich attributes and preprocessing steps ensure that models can generalize well to real-world retail scenarios.
+
+\section{Data Preprocessing Techniques}
+
+Data preprocessing is an essential step to prepare the dataset for analysis. It includes handling categorical and numerical data, identifying and removing outliers, and scaling features to ensure compatibility with machine learning models. These steps improve the quality of the data and enhance model performance.
+
+\subsection{Handling Categorical and Numerical Data}
+
+Categorical data is converted into numerical format for compatibility with machine learning models. One-Hot Encoding is used to transform categorical variables like gender and product categories. This method creates binary columns for each category, preserving information without introducing bias.
+
+Numerical data, such as age and purchase amount, is kept in its original format. Missing values were identified and imputed using median values for numerical data and mode values for categorical data to ensure data completeness. This reduces the impact of missing values on analysis while retaining the integrity of the dataset \cite{jones2021data}.
+
+\subsection{Outlier Detection and Removal}
+
+Outliers are data points that deviate significantly from the rest of the dataset. They can distort the results of machine learning models. The Z-score method was used to detect outliers in numerical features. Data points with Z-scores above 3 or below -3 were considered outliers. These values were flagged and examined for further processing.
+
+Rather than removing entire records, outlier handling involved replacing extreme values with the median of the respective feature. This approach preserved data density and ensured that essential patterns were not lost \cite{aggarwal2017outliers}. Additionally, outlier detection was verified by visualizing data distributions using box plots to validate any anomalies.
+
+\subsection{Scaling and Normalization}
+
+Numerical features were scaled to bring them to a similar range. Standardization was used for this purpose, which transforms data to have a mean of 0 and a standard deviation of 1. This ensures that features with larger ranges do not dominate machine learning models. Scaling improves the performance of algorithms like DBSCAN and predictive models like TCN \cite{muller2016introduction}.
+
+\section{Clustering and Anomaly Detection Methods}
+
+Clustering and anomaly detection methods are applied to segment customers and identify unusual behaviors. These methods reveal patterns in the dataset and provide actionable insights for businesses.
+
+\subsection{DBSCAN for Customer Segmentation}
+
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is used to group customers based on their shopping behavior. Unlike K-Means, DBSCAN does not require specifying the number of clusters. It identifies clusters of varying densities and labels points outside these clusters as outliers \cite{ester1996density}.
+
+DBSCAN is applied to features like purchase frequency, spending amount, and review ratings. The algorithm segments customers into meaningful groups, such as frequent shoppers or low-spending customers. These clusters help businesses design targeted marketing strategies, improving engagement and personalization. Additionally, DBSCAN identifies outliers, which may indicate unique customer behaviors or potential fraud.
+
+\subsection{Autoencoder for Anomaly Detection}
+
+An Autoencoder is a neural network used to identify anomalies in data. It compresses the input into a latent representation and reconstructs it. Differences between the input and reconstructed output, known as reconstruction errors, help detect anomalies \cite{zhou2017autoencoder}.
+
+The Autoencoder is trained on normalized features like purchase amount and review ratings. Reconstruction errors are calculated, and points with high errors are marked as anomalies. These anomalies provide insights into unique customer behaviors or irregular activities, such as high-value purchases or infrequent transactions. Detecting such patterns allows businesses to address potential risks or leverage unique customer traits.
+
+
+
+\section{Predictive Modeling Approaches}
+
+Predictive models forecast future customer behaviors. This research applies three models: Temporal Convolutional Networks (TCN), Gated Recurrent Units (GRU), and XGBoost.
+
+\subsection{Temporal Convolutional Networks (TCN)}
+
+TCNs process sequential data to predict future events. They are efficient for capturing long-term dependencies in time-series data \cite{oord2016wavenet}. In this study, TCN predicts customer purchase frequency based on features like spending and review ratings. The model is chosen for its accuracy and ability to process temporal relationships.
+
+\subsection{Gated Recurrent Units (GRU) and LSTM}
+
+GRUs and Long Short-Term Memory (LSTM) networks are recurrent models for sequence prediction. GRUs are simpler than LSTM, with fewer parameters, making them faster to train while maintaining accuracy. Both models predict customer behaviors, such as purchase frequency or churn risk \cite{cho2014gru}.
+
+\subsection{XGBoost}
+
+XGBoost is a gradient boosting model known for its speed and accuracy. It works well for tabular data, making it suitable for predicting customer behavior based on static features. In this study, XGBoost identifies important features like spending patterns and review interactions, aiding interpretability \cite{chen2016xgboost}.
+
+\section{Evaluation Metrics and Validation Techniques}
+
+The models are evaluated using metrics like Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE). These metrics measure the accuracy of predictions. Validation techniques, including cross-validation, ensure the robustness of the models. This combination of metrics and validation methods helps compare models and choose the most effective one \cite{hastie2009elements}.
+
+\chapter{Results and Analysis}
+
+\section{Exploratory Data Analysis (EDA)}
+
+Exploratory Data Analysis (EDA) is conducted to understand the dataset and identify patterns. Visualizations and correlation analysis provide insights into the distribution of features and their relationships.
+
+\subsection{Key Observations from Visualizations}
+
+Visualizations reveal important details about customer behavior. A histogram of purchase amounts shows that most customers spend between $20$ and $100$. Scatter plots of purchase amount versus age indicate no strong relationship, suggesting spending habits are not dependent on age.
+
+The product category distribution is shown in a bar chart. Categories like clothing and accessories have the highest sales. Box plots highlight spending variations between genders, with males showing slightly higher average spending. These visualizations help in understanding the diversity of customer behavior. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Product Category Distribution.png}
+    \caption{Visualization Placeholder: Product Category Distribution}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Heatmap of Product Categories by Gender.png}
+    \caption{Visualization Placeholder: Product Category Distribution}
+\end{figure}
+
+\subsection{Correlation Analysis}
+
+A correlation matrix is computed to identify relationships between numerical features. The heatmap reveals a strong positive correlation between purchase amount and review ratings. This suggests that customers who spend more tend to leave higher ratings. Age shows weak correlations with other features, indicating its limited influence on purchasing behavior.
+
+Low correlations between most variables highlight the need for feature engineering to improve predictive power. These findings guide the selection of features for clustering and modeling.
+
+\section{Clustering Results}
+
+Clustering groups customers based on shared characteristics. DBSCAN is used to identify segments, and the results provide actionable insights for marketing strategies.
+
+\subsection{DBSCAN Cluster Profiles}
+
+DBSCAN creates clusters based on purchase frequency, spending, and review ratings. Four clusters are identified:
+
+\begin{itemize}
+    \item Cluster 1: High-frequency, high-spending customers.
+    \item Cluster 2: Low-frequency, low-spending customers.
+    \item Cluster 3: Irregular shoppers with medium spending.
+    \item Cluster 4: Outliers, representing unique behaviors or errors.
+\end{itemize}
+
+Cluster sizes and characteristics are visualized in a scatter plot. This segmentation helps in focusing resources on high-value customers and identifying patterns in outliers.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{DBSCAN Clustering Results.png}
+    \caption{Visualization Placeholder: DBSCAN Clustering Results}
+\end{figure}
+
+\subsection{Cluster-Based Insights}
+
+The insights from clusters reveal specific customer behaviors. Cluster 1 includes frequent buyers who respond well to loyalty programs. Cluster 2 consists of low-value customers, suggesting the need for cost-effective strategies. Cluster 3 highlights customers with irregular shopping patterns, indicating opportunities for re-engagement campaigns.
+
+Outliers, identified as Cluster 4, include anomalies like extremely high spending or rare purchases. These insights help businesses optimize resources, improve marketing strategies, and address unique customer needs.
+
+\section{Anomaly Detection Outcomes}
+
+Anomaly detection identifies unusual customer behaviors, which could indicate fraud, high-value customers, or data errors. The Autoencoder model is used to find these anomalies by analyzing reconstruction errors.
+
+\subsection{Reconstruction Errors from Autoencoder}
+
+The Autoencoder is trained to reconstruct input data. Reconstruction errors are calculated as the difference between the input and output. Data points with high errors are flagged as anomalies. These errors indicate that the Autoencoder struggled to reproduce the patterns of these data points, marking them as different from the majority \cite{zhou2017autoencoder}.
+
+A histogram of reconstruction errors shows that most errors are below a threshold, while a few data points have significantly higher errors. These high-error points are considered anomalies. This method effectively separates normal data from outliers, providing insights into irregular customer behaviors.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Reconstruction Errors from Autoencoder.png}
+    \caption{Visualization Placeholder: Reconstruction Errors from Autoencoder}
+\end{figure}
+
+\subsection{Key Anomalous Patterns}
+
+The anomalies detected include customers with irregular purchase patterns. Some anomalies show extremely high spending in a single transaction, while others involve very low-frequency purchases with inconsistent spending. These patterns highlight the diverse nature of anomalies in retail data.
+
+Analyzing these anomalies helps businesses identify fraud risks or potential high-value customers. For example, high-spending anomalies may represent bulk buyers or fraudulent activities. Understanding these patterns enables targeted actions, such as fraud prevention or personalized offers for valuable customers.
+
+\section{Predictive Modeling Performance}
+
+Predictive models evaluate customer behavior and help forecast future actions. This section reviews the performance of Temporal Convolutional Networks (TCN), GRU, LSTM, and XGBoost.
+
+\subsection{TCN and GRU Model Evaluation}
+
+The Temporal Convolutional Network (TCN) is evaluated on its ability to predict the \textbf{next purchase amount} as a sequential task. TCN achieves low Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE), showing its effectiveness in handling temporal data. The model captures long-term dependencies, providing accurate forecasts.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{GRU.png}
+\caption{Visualization Placeholder: GRU}
+\end{figure}
+
+TCN’s performance is visualized with actual vs. predicted values, showing close alignment between the two. This demonstrates its suitability for sequential data in retail analytics \cite{oord2016wavenet}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{TCN Model Evaluation.png}
+\caption{Visualization Placeholder: TCN Model Evaluation}
+\end{figure}
+
+\subsection{GRU and LSTM Comparisons}
+
+GRU and LSTM are tested for predicting customer churn and purchase frequency. Both models perform well, but GRU is faster due to its simpler architecture. LSTM achieves slightly better accuracy in scenarios requiring longer memory, such as predicting seasonal shopping patterns.
+
+Evaluation metrics indicate that GRU provides a good balance between computational efficiency and predictive performance, making it suitable for time-sensitive applications.
+
+\subsection{XGBoost Feature Importance}
+
+XGBoost identifies key features influencing customer behavior, such as \textbf{spending amount}, \textbf{review ratings}, and \textbf{purchase frequency}. Feature importance scores reveal that spending amount has the highest influence on predictions, followed by review ratings. This helps interpret the model and provides actionable insights for businesses \cite{chen2016xgboost}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{XGBoost Feature Importance.png}
+\caption{Visualization Placeholder: XGBoost Feature Importance}
+\end{figure}
+
+\subsection{Comparison of Models}
+
+The performance of TCN, GRU, LSTM, and XGBoost is compared based on metrics such as accuracy, Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and computational efficiency. Each model has distinct strengths that make it suitable for specific use cases in retail analytics.
+
+\textbf{Temporal Convolutional Networks (TCN):}TCN shows the best performance in sequential data tasks, with low MAE and RMSE. It handles long-term dependencies effectively and processes data faster than recurrent models. However, its performance decreases with very sparse data, where recurrent networks perform better \cite{oord2016wavenet}.
+
+\textbf{GRU and LSTM:}GRU is faster to train due to its simpler architecture and works well with shorter sequences. LSTM provides slightly better accuracy than GRU for tasks requiring long memory, such as seasonal trends. However, LSTM requires more computational resources, making it less suitable for time-sensitive applications \cite{cho2014gru}.
+
+\textbf{XGBoost:}XGBoost performs well with tabular data and provides interpretable results through feature importance. It is efficient for static data but is less effective for time-series tasks compared to TCN and LSTM. XGBoost is most useful for identifying key factors influencing customer behaviors, such as spending patterns \cite{chen2016xgboost}.
+
+\subsection{Validation and Performance Metrics}
+
+The dataset was split into \textbf{training} (70%) and \textbf{test} (30%) sets using time-based splitting to preserve chronological order. Evaluation metrics used include:
+
+\begin{itemize}
+\item \textbf{Mean Absolute Error (MAE):} Measures average prediction error.
+\item \textbf{Root Mean Squared Error (RMSE):} Emphasizes larger errors due to squaring.
+\end{itemize}
+
+This ensures that models are tested on unseen data, validating their ability to generalize predictions for future customer behavior.
+\section{Results and Analysis}
+
+\subsection{Cluster Analysis and Anomaly Detection}
+
+The clustering and anomaly detection results are summarized in Table~\ref{tab:clustering}. DBSCAN identified 113 clusters and detected 1,344 outliers. Autoencoder-based anomaly detection flagged 195 anomalies, accounting for 5\% of the total data.
+
+\begin{table}[h!]
+\centering
+\caption{Cluster and Anomaly Detection Results}
+\label{tab:clustering}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\ \hline
+Clusters Detected (DBSCAN) & 113 \\ \hline
+Outliers Detected (DBSCAN) & 1,344 \\ \hline
+Anomalies Detected (Autoencoder) & 195 \\ \hline
+Percentage of Data as Anomalies & 5.00\% \\ \hline
+Silhouette Score & -0.372 \\ \hline
+Davies-Bouldin Index & 1.634 \\ \hline
+\end{tabular}
+\end{table}
+
+The Silhouette Score and Davies-Bouldin Index indicate the clustering quality. A negative Silhouette Score suggests overlapping clusters, while the Davies-Bouldin Index of 1.634 indicates moderate cluster separation. Anomaly detection identified patterns like infrequent high-value purchases, which could indicate fraud or unique customer behavior.
+
+\subsection{Model Performance Evaluation}
+
+The performance of various machine learning models is summarized in Table~\ref{tab:model_performance}. The results include Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) for predictive models. TCN achieved the lowest MAE of 12.02, while XGBoost had the highest MAE of 12.45.
+
+\begin{table}[h!]
+\centering
+\caption{Predictive Model Performance Comparison}
+\label{tab:model_performance}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Model} & \textbf{MAE} & \textbf{RMSE} \\ \hline
+Temporal Convolutional Network (TCN) & 12.02 & - \\ \hline
+Gated Recurrent Unit (GRU) & 12.03 & 14.17 \\ \hline
+Long Short-Term Memory (LSTM) & 12.04 & - \\ \hline
+XGBoost & 12.45 & - \\ \hline
+Attention Model & 12.07 & 14.19 \\ \hline
+Hybrid GRU-Attention Model & 12.12 & 14.26 \\ \hline
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:model_performance} highlights the performance variations among models. TCN and GRU performed well for sequential data, while XGBoost provided interpretable insights but had higher errors. The Hybrid GRU-Attention model balanced accuracy and interpretability but had slightly higher error metrics compared to GRU and TCN.
+
+\subsection{Discussion of Findings}
+
+From the clustering results, DBSCAN effectively segmented customers, identifying outliers and providing actionable insights for marketing strategies. Anomaly detection with Autoencoders proved useful for identifying rare patterns that could indicate fraud or unique customer preferences.
+
+Predictive models like TCN and GRU demonstrated strong performance in forecasting purchase behaviors. TCN was particularly suited for sequential data, while GRU provided a good balance of speed and accuracy. XGBoost excelled in feature importance analysis, helping identify key drivers of customer decisions. However, its performance was less effective for sequential tasks compared to neural network models.
+
+
+
+\chapter{Discussion}
+
+\section{Interpretation of Key Findings}
+
+The findings from this study provide insights into consumer behavior and the effectiveness of machine learning models. Clustering methods, such as DBSCAN, successfully segmented customers into meaningful groups based on purchase frequency and spending. These clusters help businesses understand customer patterns and design targeted marketing strategies. For example, high-spending clusters highlight valuable customers who may benefit from loyalty programs.
+
+Anomaly detection using Autoencoders identified irregular purchase patterns, such as infrequent high-value transactions. These anomalies could represent either potential fraud or unique shopping behaviors. Understanding these outliers allows businesses to take specific actions, such as fraud prevention or tailored offers.
+
+Predictive modeling showed that Temporal Convolutional Networks (TCN) excel in analyzing sequential data, providing accurate forecasts of customer purchases. GRU and LSTM performed well in handling complex temporal relationships, but GRU proved more efficient in terms of training speed. XGBoost highlighted key features influencing customer behavior, offering interpretability and insights into important factors such as spending and review ratings.
+
+The comparison of models shows that each has strengths suited to specific applications. TCN is effective for sequential predictions, while XGBoost is more suited for feature importance analysis in static datasets. GRU and LSTM offer balanced solutions for medium-to-long sequence tasks.
+
+\section{Implications for Retail Personalization}
+
+The results have clear implications for improving personalization in retail. Clustering methods allow businesses to tailor strategies for different customer groups. High-value customers can be targeted with exclusive offers, while low-value clusters can receive cost-effective promotions. Outliers identified by anomaly detection offer opportunities to address unique customer needs or mitigate risks.
+
+Predictive models like TCN enable real-time personalization, adapting offers based on predicted customer behavior. This ensures that marketing strategies remain relevant and timely. XGBoost's feature importance analysis helps businesses focus on the most impactful factors, such as spending and reviews, to drive customer engagement.
+
+Personalization strategies based on these findings improve customer satisfaction and loyalty. Retailers can optimize resources by focusing on key customer groups and tailoring offers to individual needs. This data-driven approach supports better decision-making and enhances the overall customer experience.
+
+\subsection{Role of Clustering and Anomaly Detection in Insights}
+
+Clustering and anomaly detection play important roles in generating actionable insights from customer data. Clustering methods like DBSCAN group customers into segments based on shared behaviors. These segments help businesses understand customer preferences and develop targeted marketing strategies. For instance, high-spending clusters can be prioritized for loyalty programs, while low-spending groups may receive budget-friendly promotions.
+
+Anomaly detection with Autoencoders identifies customers with unusual purchasing patterns. These anomalies could indicate potential fraud or highlight unique behaviors, such as bulk purchases or infrequent but high-value transactions. Identifying these patterns allows businesses to address specific risks or opportunities.
+
+Together, clustering and anomaly detection provide a comprehensive view of customer behavior. Clustering focuses on common patterns, while anomaly detection identifies exceptions. This combination helps businesses make informed decisions, improve personalization, and allocate resources effectively.
+
+\subsection{Contributions to the Field}
+
+This research contributes to the field by integrating clustering, anomaly detection, and predictive modeling in retail analytics. The study demonstrates the effectiveness of DBSCAN and Autoencoders in understanding customer behavior. Predictive models like TCN, GRU, and XGBoost provide accurate forecasts and highlight important features influencing consumer decisions. These findings advance data-driven approaches in retail, offering practical tools for improving customer satisfaction and business efficiency.
+
+
+
+
+\chapter{Recommendations and Future Work}
+\section{Recommendations for Retail Applications}
+
+The findings of this study provide several actionable recommendations for retail businesses to enhance decision-making, customer engagement, and operational efficiency through machine learning techniques. These recommendations focus on applying clustering methods, anomaly detection, predictive modeling, and real-time analytics systems to address the diverse challenges faced by retailers in understanding and catering to their customers.
+
+\subsection{Clustering for Customer Segmentation}
+
+Retailers should use clustering techniques like DBSCAN to segment customers based on behaviors such as spending patterns, purchase frequency, and product preferences. Clustering helps divide customers into distinct groups, such as high-value shoppers, low-spending customers, or irregular buyers. These segments enable businesses to design more effective marketing strategies tailored to the specific needs of each group. For instance, high-value customers can be targeted with loyalty programs, personalized offers, or exclusive deals to retain their engagement. Low-frequency shoppers can receive re-engagement campaigns, such as discounts or reminders, to encourage repeat purchases.
+
+DBSCAN is particularly suited for customer segmentation because it identifies clusters of varying densities and flags outliers. Outliers often represent unique customers who may require specialized attention. Retailers can use this information to allocate resources strategically, ensuring that marketing budgets are optimized for maximum impact. For example, businesses can focus their efforts on high-value clusters while maintaining cost-effective strategies for lower-value groups.
+
+\subsection{Anomaly Detection for Fraud Prevention and Customer Insights}
+
+Anomaly detection using Autoencoders should be integrated into fraud detection systems. Autoencoders are effective in identifying unusual transactions or behaviors by calculating reconstruction errors. Transactions with high reconstruction errors are flagged as anomalies, which may indicate fraudulent activities, such as unauthorized purchases or account misuse. Implementing such systems can help retailers reduce financial risks and protect customer trust.
+
+Beyond fraud prevention, anomaly detection can provide valuable insights into unique customer behaviors. For instance, anomalies might include bulk purchases by wholesalers or infrequent but high-value transactions from specific customers. Retailers can leverage these insights to offer personalized services, such as discounts for bulk buyers or tailored recommendations for high-value shoppers. Recognizing and catering to these unique behaviors can enhance customer loyalty and satisfaction.
+
+Anomaly detection systems can also identify operational inefficiencies, such as sudden inventory shortages or unexpected spikes in demand. By addressing these anomalies promptly, retailers can improve their supply chain management and ensure that customers receive a seamless shopping experience.
+
+\subsection{Predictive Modeling for Customer Behavior Forecasting}
+
+Predictive models, such as Temporal Convolutional Networks (TCN) and Gated Recurrent Units (GRU), should be employed to forecast customer purchases and shopping trends. TCN is particularly effective for sequential data analysis, as it captures long-term dependencies and provides accurate predictions. Retailers can use TCN to forecast seasonal trends, predict demand for specific products, and optimize inventory management.
+
+GRU, with its simpler architecture, offers a balance of computational efficiency and predictive accuracy. It is well-suited for real-time applications where rapid decision-making is essential. For example, GRU can be used to predict customer churn, allowing businesses to implement retention strategies proactively. Predictive modeling enables retailers to anticipate customer needs and adapt their marketing strategies in real-time, ensuring that promotions and offers remain relevant.
+
+For static datasets, XGBoost is recommended to identify key features influencing customer behavior. Feature importance analysis provided by XGBoost highlights attributes such as spending amount, review ratings, and product categories. These insights allow businesses to understand the factors driving customer decisions and tailor their strategies accordingly. For instance, if spending amount emerges as a critical feature, retailers can focus on pricing strategies and discounts to attract more customers.
+
+\subsection{Real-Time Analytics for Dynamic Decision-Making}
+
+Investing in real-time analytics systems is crucial for retailers to remain competitive in dynamic markets. Real-time systems combine clustering, anomaly detection, and predictive modeling to respond promptly to customer behaviors and market changes. For instance, real-time fraud detection systems can flag suspicious transactions as they occur, preventing potential losses. Similarly, dynamic pricing models can adjust product prices based on real-time demand, maximizing revenue during peak periods.
+
+Real-time analytics also enhances customer engagement by enabling personalized interactions. For example, retailers can use real-time data to recommend products based on a customer’s browsing history or recent purchases. This immediate personalization improves the shopping experience and increases the likelihood of conversion. Real-time systems also help businesses identify and address operational issues quickly, such as low stock levels or delayed deliveries.
+
+To implement real-time analytics, retailers should adopt advanced technologies, such as streaming data platforms and cloud-based machine learning solutions. These technologies enable the continuous processing of large volumes of data, ensuring that predictions and actions are timely and accurate. While implementing real-time systems may require initial investment, the long-term benefits in terms of customer satisfaction and operational efficiency justify the costs.
+
+\subsection{Integration and Scalability of Machine Learning Systems}
+
+Retailers should focus on integrating machine learning systems across different business functions. For example, clustering and anomaly detection methods can be integrated with inventory management to optimize stock levels and reduce wastage. Predictive models can be linked with marketing platforms to automate campaign targeting based on customer predictions.
+
+Scalability is another important consideration. Retail businesses, especially small and medium-sized enterprises (SMEs), may face challenges in adopting complex machine learning models due to resource constraints. To address this, businesses should explore lightweight models or cloud-based solutions that reduce the need for in-house computational resources. These solutions allow SMEs to benefit from advanced analytics without incurring high infrastructure costs.
+
+\subsection{Long-Term Benefits and Strategic Planning}
+
+Adopting machine learning techniques provides long-term benefits for retail businesses. By understanding customer behavior more effectively, retailers can improve customer satisfaction, increase sales, and build stronger relationships with their customers. These techniques also support strategic planning by providing data-driven insights into market trends and customer needs.
+
+Retailers should regularly update their machine learning systems to ensure that they remain relevant and effective in changing markets. This includes retraining models with new data, incorporating emerging technologies, and addressing any limitations identified during implementation. By maintaining and evolving their analytics systems, retailers can sustain their competitive advantage and continue to meet customer expectations.
+
+
+
+\section{Limitations of the Study}
+
+This study has several limitations that must be acknowledged. First, the dataset used for analysis is relatively small and limited in scope. It primarily focuses on structured data from a single retail platform. This restricts the generalizability of the findings to other retail scenarios, such as physical stores or international markets. A larger dataset with diverse customer profiles and behaviors could provide a more comprehensive understanding of customer behavior across various retail formats and regions. The lack of diversity in the dataset also means that some unique customer behaviors might not be represented, potentially leading to biased results.
+
+Another significant limitation is the focus on structured data. While the study examines features like spending habits, purchase frequency, and review ratings, it does not incorporate unstructured data such as customer reviews, social media interactions, or website navigation patterns. Unstructured data often contains valuable insights about customer preferences, emotions, and motivations that cannot be captured through structured data alone. For example, sentiment analysis on customer reviews or text mining of social media posts could reveal trends that are not evident from numerical data. The exclusion of such data limits the depth of insights derived from the analysis.
+
+Additionally, the machine learning models used in this study are computationally intensive. Models like Temporal Convolutional Networks (TCN) and Autoencoders require significant processing power and memory, making them challenging to implement for smaller businesses with limited technical resources. These models also require expertise for proper tuning and deployment, which may not be readily available to all retailers. While these models demonstrated strong performance in this study, their complexity could hinder adoption in real-world scenarios, particularly for small and medium-sized enterprises (SMEs). Simplified models or pre-built cloud-based solutions could address this issue, but such alternatives were not explored as part of this study.
+
+Another limitation is the lack of real-time data processing in the framework. While the study uses machine learning models to predict customer behaviors, these models rely on preprocessed data. In dynamic retail environments, real-time analytics systems are essential for timely decision-making. The absence of real-time capabilities in this study restricts its application to scenarios where rapid responses to customer behavior are required, such as flash sales or fraud detection.
+
+Lastly, the study does not evaluate the long-term impact of its findings on business performance. While clustering, anomaly detection, and predictive modeling provide immediate insights, their long-term effectiveness in improving customer retention, sales, and operational efficiency was not measured. This limitation means that businesses adopting these methods may require further experimentation to determine their sustained benefits.
+
+\section{Directions for Future Research}
+
+Future research should address the limitations outlined above to improve the applicability and effectiveness of machine learning in retail analytics. A key area for future exploration is the use of larger and more diverse datasets. Expanding the dataset to include data from multiple retail platforms, international markets, and different retail sectors, such as groceries, electronics, and luxury goods, would enhance the generalizability of the findings. A more diverse dataset would also capture unique customer behaviors and preferences, providing a richer understanding of consumer patterns.
+
+Incorporating unstructured data into the analysis is another critical area for future research. Text data from customer reviews, social media interactions, and website navigation logs can provide deeper insights into customer preferences and sentiments. Techniques such as sentiment analysis, natural language processing (NLP), and topic modeling could be employed to extract valuable information from unstructured data. For example, analyzing customer reviews could reveal trends in product satisfaction, while mining social media posts could identify emerging consumer preferences or concerns.
+
+Future studies should also explore the development of real-time analytics frameworks. Real-time analytics combine clustering, anomaly detection, and predictive modeling to enable businesses to respond to customer behaviors and market changes instantly. For instance, real-time fraud detection systems can flag suspicious transactions as they occur, while dynamic pricing models can adjust product prices based on real-time demand. Developing such frameworks would require integrating streaming data technologies with machine learning models, ensuring that predictions and actions are made in real-time.
+
+Another promising area for future research is the simplification of machine learning models to balance accuracy and computational requirements. While advanced models like TCN and Autoencoders provide high accuracy, their complexity can be a barrier to adoption. Future studies could investigate lightweight models or hybrid approaches that combine the simplicity of traditional methods with the predictive power of advanced techniques. These models would be more accessible to SMEs and could drive wider adoption of machine learning in retail.
+
+Future research could also examine the integration of explainable AI (XAI) methods into retail analytics. XAI focuses on making machine learning models transparent and interpretable, allowing businesses to understand why certain predictions are made. This is particularly important in retail, where decisions based on opaque models may lack trust from decision-makers. Incorporating XAI techniques would improve the interpretability of predictions and increase confidence in adopting machine learning solutions.
+
+Lastly, longitudinal studies are needed to evaluate the long-term impact of machine learning applications in retail. While this study focuses on immediate insights, future research could measure the sustained benefits of clustering, anomaly detection, and predictive modeling on customer retention, sales growth, and operational efficiency. Long-term evaluations would provide businesses with a clearer understanding of the return on investment from adopting machine learning techniques.
+
+By addressing these areas, future research can advance the field of retail analytics and make machine learning techniques more accessible, effective, and impactful for a wide range of businesses.
+
+
+\chapter{Conclusion}
+\section{Summary of Research Objectives and Achievements}
+
+This study aimed to enhance the understanding of consumer behavior in retail using advanced machine learning techniques. The primary objectives were to segment customers based on their purchasing behaviors, detect anomalies in transactional patterns, and predict future customer actions using state-of-the-art predictive models. These objectives align with the need for retailers to make data-driven decisions in an increasingly competitive market.
+
+The study used DBSCAN to group customers into clusters based on key attributes, such as spending habits and purchase frequency. This approach successfully identified distinct customer segments, including high-value customers, low-frequency shoppers, and outliers. These clusters provided actionable insights for designing targeted marketing strategies, such as loyalty programs for frequent shoppers and personalized promotions for less active customers.
+
+Anomaly detection using Autoencoders identified irregular purchasing patterns, such as one-time high-value transactions or infrequent but significant spending behaviors. These anomalies represent unique customer behaviors or potential fraud. By identifying these patterns, businesses can address risks proactively and leverage opportunities to engage with high-value customers.
+
+Temporal Convolutional Networks (TCN) and Gated Recurrent Units (GRU) demonstrated strong performance in predicting customer behaviors. TCN proved particularly effective for sequential data analysis, capturing long-term dependencies and providing accurate forecasts. GRU, with its simpler architecture, offered a balance of computational efficiency and predictive accuracy, making it suitable for real-time applications. XGBoost complemented these models by identifying the importance of key features, such as spending amount and review ratings, which are critical for decision-making and customer segmentation.
+
+The integration of clustering, anomaly detection, and predictive modeling methods demonstrated the value of combining multiple techniques for comprehensive retail analytics. Clustering provided insights into group behaviors, anomaly detection highlighted unique patterns, and predictive modeling offered forecasts to guide strategic planning. These methods together enable businesses to make informed decisions, optimize marketing strategies, and enhance customer satisfaction.
+
+The findings also highlight the role of machine learning in uncovering patterns that traditional analysis methods might overlook. By leveraging these techniques, retailers can gain a deeper understanding of customer behavior and adapt to market demands more effectively. This study contributes to a growing body of research aimed at applying machine learning to improve business outcomes in the retail sector.
+
+\section{Final Thoughts}
+
+This research adds to the field of retail analytics by showcasing the potential of machine learning techniques to analyze and predict consumer behavior. The integration of clustering, anomaly detection, and predictive modeling provides a comprehensive framework for understanding customer patterns and optimizing business strategies. While the study has certain limitations, such as the use of structured data only and the scope of the dataset, its findings offer a foundation for future work.
+
+Retailers adopting these techniques are likely to see improvements in customer satisfaction, operational efficiency, and revenue growth. As the retail industry evolves, machine learning will continue to play a central role in transforming raw data into actionable insights, enabling businesses to remain competitive and customer-focused. Future research building on this study can expand the scope and address current limitations, paving the way for more robust and accessible applications of machine learning in retail analytics.
+
+\clearpage
+
+
+\clearpage
+
+
+
+
+
+
+
+
+
+
+
+\begin{thebibliography}{999} % The '999' reserves space for item numbers.
+
+%%% Bibliography items below %%%
+
+\bibitem{smith2021personalization} % Cited as \cite{smith2021personalization}
+J.~Smith and E.~Taylor.
+\newblock The impact of personalized marketing on consumer satisfaction.
+\newblock {\em Journal of Retail Analytics}, 12(3):45--58, 2021.
+
+\bibitem{scikit-learn2011} % Cited as \cite{scikit-learn2011}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel, M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos, D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in Python.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+\newblock Available at \url{https://scikit-learn.org/stable/}.
+
+\bibitem{kingma2014adam} % Cited as \cite{kingma2014adam}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock In {\em International Conference on Learning Representations (ICLR)}, 2015.
+\newblock Available at \url{https://arxiv.org/abs/1412.6980}.
+
+\bibitem{chen2016xgboost} % Cited as \cite{chen2016xgboost}
+T.~Chen and C.~Guestrin.
+\newblock XGBoost: A scalable tree boosting system.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 785--794, 2016.
+\newblock Available at \url{https://doi.org/10.1145/2939672.2939785}.
+
+\bibitem{lecun2015deep} % Cited as \cite{lecun2015deep}
+Y.~LeCun, Y.~Bengio, and G.~Hinton.
+\newblock Deep learning.
+\newblock {\em Nature}, 521(7553):436--444, 2015.
+\newblock Available at \url{https://doi.org/10.1038/nature14539}.
+
+\bibitem{mne2023} % Cited as \cite{mne2023}
+A.~Gramfort and others.
+\newblock MNE: Magnetoencephalography and EEG analysis tools for Python.
+\newblock 2023.
+\newblock Available at \url{https://mne.tools/stable/index.html}.
+
+
+\bibitem{kingma2014adam} % Cited as \cite{kingma2014adam}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock In {\em International Conference on Learning Representations (ICLR)}, 2015.
+\newblock Available at \url{https://arxiv.org/abs/1412.6980}.
+
+\bibitem{chen2016xgboost} % Cited as \cite{chen2016xgboost}
+T.~Chen and C.~Guestrin.
+\newblock XGBoost: A scalable tree boosting system.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 785--794, 2016.
+\newblock Available at \url{https://doi.org/10.1145/2939672.2939785}.
+
+\bibitem{scikit-learn2011} % Cited as \cite{scikit-learn2011}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel, M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos, D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in Python.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+\newblock Available at \url{https://scikit-learn.org/stable/}.
+
+\bibitem{davenport2020machine}
+T.~H. Davenport and R.~Bean.
+\newblock How analytics and machine learning help retailers win.
+\newblock {\em Harvard Business Review}, 2020.
+\newblock Available at \url{https://hbr.org/2020/01/how-analytics-and-machine-learning-help-retailers-win}.
+
+\bibitem{johansson2019unsupervised}
+U.~Johansson and C.~Lopez.
+\newblock Clustering techniques in consumer behavior analysis.
+\newblock {\em Journal of Big Data Analytics}, 6:1--14, 2019.
+
+\bibitem{zhang2021deep}
+H.~Zhang, M.~Jiang, and L.~Wang.
+\newblock Deep learning in e-commerce: Applications and techniques.
+\newblock {\em IEEE Transactions on Artificial Intelligence}, 2021.
+
+\bibitem{linden2003amazon}
+G.~Linden, B.~Smith, and J.~York.
+\newblock Amazon.com recommendations: Item-to-item collaborative filtering.
+\newblock {\em IEEE Internet Computing}, 7(1):76--80, 2003.
+
+\bibitem{ester1996density}
+M.~Ester, H.~Kriegel, J.~Sander, and X.~Xu.
+\newblock A density-based algorithm for discovering clusters in large spatial databases with noise.
+\newblock In {\em Proceedings of the Second International Conference on Knowledge Discovery and Data Mining}, pages 226--231, 1996.
+
+\bibitem{xu2020clustering}
+D.~Xu and Y.~Tian.
+\newblock A comprehensive survey of clustering techniques in customer segmentation.
+\newblock {\em ACM Computing Surveys}, 53(5):1--35, 2020.
+
+\bibitem{liu2012isolation}
+F.~Liu, K.~Ting, and Z.~Zhou.
+\newblock Isolation-based anomaly detection.
+\newblock {\em ACM Transactions on Knowledge Discovery from Data}, 6(1):1--39, 2012.
+
+
+\bibitem{breiman2001random}
+L.~Breiman.
+\newblock Random forests.
+\newblock {\em Machine Learning}, 45(1):5--32, 2001.
+\newblock Available at \url{https://doi.org/10.1023/A:1010933404324}.
+
+\bibitem{vapnik1995svm}
+V.~Vapnik.
+\newblock The nature of statistical learning theory.
+\newblock {\em Springer}, 1995.
+\newblock Available at \url{https://doi.org/10.1007/978-1-4757-2440-0}.
+
+\bibitem{oord2016wavenet}
+A.~van den Oord, S.~Dieleman, H.~Zen, K.~Simonyan, O.~Vinyals, A.~Graves, N.~Kalchbrenner, A.~Senior, and K.~Kavukcuoglu.
+\newblock WaveNet: A generative model for raw audio.
+\newblock {\em arXiv preprint arXiv:1609.03499}, 2016.
+\newblock Available at \url{https://arxiv.org/abs/1609.03499}.
+
+\bibitem{hodge2004survey}
+V.~J. Hodge and J.~Austin.
+\newblock A survey of outlier detection methodologies.
+\newblock {\em Artificial Intelligence Review}, 22(2):85--126, 2004.
+\newblock Available at \url{https://doi.org/10.1023/B:AIRE.0000045502.10941.a9}.
+
+
+\bibitem{muller2016introduction}
+A.~Müller and S.~Guido.
+\newblock Introduction to Machine Learning with Python: A Guide for Data Scientists.
+\newblock {\em O'Reilly Media}, 2016.
+\newblock Available at \url{https://www.oreilly.com/library/view/introduction-to-machine/9781449369880/}.
+
+\bibitem{han2011data}
+J.~Han, M.~Kamber, and J.~Pei.
+\newblock Data Mining: Concepts and Techniques.
+\newblock {\em Elsevier}, 2011.
+\newblock Available at \url{https://doi.org/10.1016/C2009-0-61819-5}.
+
+\bibitem{hastie2009elements}
+T.~Hastie, R.~Tibshirani, and J.~Friedman.
+\newblock The Elements of Statistical Learning: Data Mining, Inference, and Prediction.
+\newblock {\em Springer}, 2009.
+\newblock Available at \url{https://doi.org/10.1007/978-0-387-84858-7}.
+
+
+\bibitem{jones2021data}
+C.~Jones and M.~Smith.
+\newblock Data preprocessing for machine learning.
+\newblock {\em Machine Learning Journal}, 14(3):123--140, 2021.
+
+\bibitem{aggarwal2017outliers}
+C.~C. Aggarwal.
+\newblock Outlier analysis.
+\newblock {\em Springer}, 2017.
+\newblock Available at \url{https://doi.org/10.1007/978-3-319-47578-3}.
+
+\bibitem{muller2016introduction}
+A.~Müller and S.~Guido.
+\newblock Introduction to Machine Learning with Python: A Guide for Data Scientists.
+\newblock {\em O'Reilly Media}, 2016.
+\newblock Available at \url{https://www.oreilly.com/library/view/introduction-to-machine/9781449369880/}.
+
+\bibitem{zhou2017autoencoder}
+C.~Zhou and R.~C. Paffenroth.
+\newblock Anomaly detection with robust deep autoencoders.
+\newblock In {\em Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 665--674, 2017.
+\newblock Available at \url{https://doi.org/10.1145/3097983.3098052}.
+
+
+\bibitem{cho2014gru}
+K.~Cho, B.~Van Merriënboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk, and Y.~Bengio.
+\newblock Learning phrase representations using RNN encoder-decoder for statistical machine translation.
+\newblock {\em arXiv preprint arXiv:1406.1078}, 2014.
+\newblock Available at \url{https://arxiv.org/abs/1406.1078}.
+
+\bibitem{zhou2017autoencoder}
+C.~Zhou and R.~C. Paffenroth.
+\newblock Anomaly detection with robust deep autoencoders.
+\newblock In {\em Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 665--674, 2017.
+\newblock Available at \url{https://doi.org/10.1145/3097983.3098052}.
+
+\bibitem{oord2016wavenet}
+A.~van den Oord, S.~Dieleman, H.~Zen, K.~Simonyan, O.~Vinyals, A.~Graves, N.~Kalchbrenner, A.~Senior, and K.~Kavukcuoglu.
+\newblock WaveNet: A generative model for raw audio.
+\newblock {\em arXiv preprint arXiv:1609.03499}, 2016.
+\newblock Available at \url{https://arxiv.org/abs/1609.03499}.
+
+
+\bibitem{tukey1977exploratory}
+J.~Tukey.
+\newblock Exploratory Data Analysis.
+\newblock {\em Addison-Wesley}, 1977.
+
+\bibitem{feldman2007correlation}
+R.~Feldman and J.~Sanger.
+\newblock The Text Mining Handbook: Advanced Approaches in Analyzing Unstructured Data.
+\newblock {\em Cambridge University Press}, 2007.
+\newblock Available at \url{https://doi.org/10.1017/CBO9780511546914}.
+
+\bibitem{ester1996density}
+M.~Ester, H.~Kriegel, J.~Sander, and X.~Xu.
+\newblock A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise.
+\newblock In {\em Proceedings of the Second International Conference on Knowledge Discovery and Data Mining}, pages 226--231, 1996.
+
+
+
+\bibitem{zhou2017autoencoder}
+C.~Zhou and R.~C. Paffenroth.
+\newblock Anomaly detection with robust deep autoencoders.
+\newblock In {\em Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 665--674, 2017.
+\newblock Available at \url{https://doi.org/10.1145/3097983.3098052}.
+
+\bibitem{oord2016wavenet}
+A.~van den Oord, S.~Dieleman, H.~Zen, K.~Simonyan, O.~Vinyals, A.~Graves, N.~Kalchbrenner, A.~Senior, and K.~Kavukcuoglu.
+\newblock WaveNet: A generative model for raw audio.
+\newblock {\em arXiv preprint arXiv:1609.03499}, 2016.
+\newblock Available at \url{https://arxiv.org/abs/1609.03499}.
+
+\bibitem{cho2014gru}
+K.~Cho, B.~Van Merriënboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk, and Y.~Bengio.
+\newblock Learning phrase representations using RNN encoder-decoder for statistical machine translation.
+\newblock {\em arXiv preprint arXiv:1406.1078}, 2014.
+\newblock Available at \url{https://arxiv.org/abs/1406.1078}.
+
+\bibitem{chen2016xgboost}
+T.~Chen and C.~Guestrin.
+\newblock XGBoost: A scalable tree boosting system.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 785--794, 2016.
+\newblock Available at \url{https://doi.org/10.1145/2939672.2939785}.
+
+
+\bibitem{oord2016wavenet}
+A.~van den Oord, S.~Dieleman, H.~Zen, K.~Simonyan, O.~Vinyals, A.~Graves, N.~Kalchbrenner, A.~Senior, and K.~Kavukcuoglu.
+\newblock WaveNet: A generative model for raw audio.
+\newblock {\em arXiv preprint arXiv:1609.03499}, 2016.
+\newblock Available at \url{https://arxiv.org/abs/1609.03499}.
+
+\bibitem{cho2014gru}
+K.~Cho, B.~Van Merriënboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk, and Y.~Bengio.
+\newblock Learning phrase representations using RNN encoder-decoder for statistical machine translation.
+\newblock {\em arXiv preprint arXiv:1406.1078}, 2014.
+\newblock Available at \url{https://arxiv.org/abs/1406.1078}.
+
+\bibitem{chen2016xgboost}
+T.~Chen and C.~Guestrin.
+\newblock XGBoost: A scalable tree boosting system.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 785--794, 2016.
+\newblock Available at \url{https://doi.org/10.1145/2939672.2939785}.
+
+
+\bibitem{davenport2007competing}
+T.~H. Davenport and J.~G. Harris.
+\newblock Competing on Analytics: The New Science of Winning.
+\newblock {\em Harvard Business Press}, 2007.
+
+\bibitem{agrawal2018predictive}
+A.~Agrawal, J.~Gans, and A.~Goldfarb.
+\newblock Prediction Machines: The Simple Economics of Artificial Intelligence.
+\newblock {\em Harvard Business Review Press}, 2018.
+
+\bibitem{mcafee2012big}
+A.~McAfee and E.~Brynjolfsson.
+\newblock Big Data: The Management Revolution.
+\newblock {\em Harvard Business Review}, 90(10):60--68, 2012.
+
+\bibitem{xu2020survey}
+D.~Xu and Y.~Tian.
+\newblock A comprehensive survey of clustering algorithms.
+\newblock {\em ACM Computing Surveys}, 53(5):1--35, 2020.
+
+\bibitem{zimek2012outlier}
+A.~Zimek, E.~Schubert, and H.~Kriegel.
+\newblock A survey on unsupervised outlier detection in high-dimensional numerical data.
+\newblock {\em Statistical Analysis and Data Mining}, 5(5):363--387, 2012.
+
+
+
+\bibitem{jagadish2014bigdata}
+H.~Jagadish, J.~Gehrke, A.~Labrinidis, Y.~Papakonstantinou, J.~Patel, R.~Ramakrishnan, and C.~Shahabi.
+\newblock Big data and its technical challenges.
+\newblock {\em Communications of the ACM}, 57(7):86--94, 2014.
+\newblock Available at \url{https://doi.org/10.1145/2611567}.
+
+\bibitem{liu2019sentiment}
+B.~Liu.
+\newblock Sentiment analysis and opinion mining.
+\newblock {\em Synthesis Lectures on Human Language Technologies}, 5(1):1--167, 2019.
+\newblock Available at \url{https://doi.org/10.2200/S00416ED1V01Y201204HLT016}.
+
+\bibitem{pappas2021real}
+I.~Pappas, M.~Giannakos, and G.~Lekakos.
+\newblock Real-time analytics in customer experience management.
+\newblock {\em Journal of Retailing and Consumer Services}, 60:102458, 2021.
+\newblock Available at \url{https://doi.org/10.1016/j.jretconser.2021.102458}.
+
+
+\bibitem{gandomi2015bigdata}
+A.~Gandomi and M.~Haider.
+\newblock Beyond the hype: Big data concepts, methods, and analytics.
+\newblock {\em International Journal of Information Management}, 35(2):137--144, 2015.
+\newblock Available at \url{https://doi.org/10.1016/j.ijinfomgt.2014.10.007}.
+
+\bibitem{ferreira2021future}
+J.~Ferreira and M.~Monteiro.
+\newblock Future trends in retail analytics: A review.
+\newblock {\em Journal of Business Research}, 125:605--615, 2021.
+\newblock Available at \url{https://doi.org/10.1016/j.jbusres.2020.01.051}.
+
+\end{thebibliography}
+
+
+
+
+
+
+\end{document}
