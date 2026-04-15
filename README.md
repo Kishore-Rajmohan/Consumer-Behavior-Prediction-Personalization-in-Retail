@@ -1,11 +1,4 @@
 # 🛍️ Consumer Behavior Prediction and Personalization in Retail
-
-![University of Essex](Images/essex.png)
-
-**MA981 Dissertation — University of Essex** 🎓
-*School of Mathematics, Statistics and Actuarial Science*
-*December 2024*
-
 ---
 
 ## 👋 What This Project Is About
