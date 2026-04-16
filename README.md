@@ -9,7 +9,7 @@ don't really know what to do with it. They send the same email to
 everyone, stock products based on gut feeling, and only find out
 about fraud after the damage is done.
 
-I wanted to see if machine learning could actually fix that — not
+I wanted to see if machine learning could actually fix that not
 in theory, but with real data. So I took a dataset of 3,900 retail
 customers and built a pipeline that answers three questions:
 
@@ -22,7 +22,7 @@ customers and built a pipeline that answers three questions:
 ## 💼 The Business Problem
 
 Imagine you run an online clothing store. You've got thousands of
-customers but you're treating them all the same — same promotions,
+customers but you're treating them all the same promotions,
 same emails, same everything. Some of them haven't bought anything
 in months. Some of them spend hundreds every week. You're wasting
 money on people who don't care and not rewarding the ones who do.
@@ -69,12 +69,12 @@ that needed a closer look.
 **🚨 Anomaly Detection**
 Trained an Autoencoder to learn what "normal" purchasing looks like,
 then flagged anything that didn't fit. About 5% of the data came
-back as anomalous — some of those are probably fraud, some are just
-unusual high-value customers worth paying attention to.
+back as anomalous some of those are probably fraud, some are just
+unusual high value customers worth paying attention to.
 
 **🔮 Purchase Forecasting**
-Compared six different models — TCN, GRU, LSTM, XGBoost, Attention,
-and a Hybrid GRU-Attention model — to see which one predicted future
+Compared six different models TCN, GRU, LSTM, XGBoost, Attention,
+and a Hybrid GRU Attention modelto see which one predicted future
 purchases most accurately.
 
 ---
@@ -115,7 +115,7 @@ that behave differently and probably need a different approach.
 | Clusters Identified | 113 |
 | Outliers Flagged | 1,344 |
 | Silhouette Score | -0.372 |
-| Davies-Bouldin Index | 1.634 |
+| Davies Bouldin Index | 1.634 |
 
 Honest note — the Silhouette Score being negative tells you the
 clusters overlap quite a bit. That's partly a limitation of the
@@ -150,13 +150,13 @@ I trained and compared six models. Here's how they did:
 | GRU | 12.03 | 14.17 |
 | LSTM | 12.04 | — |
 | Attention | 12.07 | 14.19 |
-| Hybrid GRU-Attention | 12.12 | 14.26 |
+| Hybrid GRU Attention | 12.12 | 14.26 |
 | XGBoost | 12.45 | — |
 
 TCN came out on top but honestly the differences are small. What
 matters more is picking the right model for the right job — TCN
 for sequential forecasting, GRU if you need speed, XGBoost if
-you want to explain your predictions to a non-technical team.
+you want to explain your predictions to a non technical team.
 
 **📉 GRU Training & Validation Loss**
 
@@ -187,8 +187,8 @@ do next.
 Based on what I found, here's what I'd actually recommend:
 
 **👥 On segmentation** — stop treating all customers the same.
-Your high-spend frequent buyers deserve a loyalty programme.
-Your one-time buyers need a re-engagement campaign, not the
+Your high spend frequent buyers deserve a loyalty programme.
+Your one time buyers need a reengagement campaign, not the
 same newsletter as everyone else.
 
 **🚨 On anomaly detection** — automate the flagging. You don't
@@ -217,10 +217,10 @@ This project has limitations and I want to be upfront about them:
   deploys this in production
 
 Things I'd build next:
-- [ ] 🔴 Real-time fraud flagging pipeline
+- [ ] 🔴 Real time fraud flagging pipeline
 - [ ] 💬 Sentiment analysis on customer reviews
 - [ ] 🌐 REST API to serve the TCN predictions live
-- [ ] 🔍 Explainability layer so non-technical stakeholders
+- [ ] 🔍 Explainability layer so non technical stakeholders
         can trust the outputs
 
 ---
